@@ -2,8 +2,8 @@
 与后台交互模块 （依赖已封装的ajax函数）
 */
 import ajax from './ajax'
-// const BASE_URL = 'http://local:4000'
-const BASE_URL = 'http://localhost:8090/api'
+// const BASE_URL = 'http://local:8090'
+const BASE_URL = 'http://localhost:8090'
 /**
  * 获取地址信息(根据经纬度串)
  * 这个接口的经纬度参数是在url路径里的，没有query参数
@@ -26,7 +26,7 @@ export const reqSearchShop = (geohash, keyword) => ajax(BASE_URL + '/search_shop
 /**
  * 账号密码登录
  */
-export const reqPwdLogin = (name, pwd, id, value) => ajax(BASE_URL + '/login_pwd', {name, pwd, id, value}, 'POST')
+export const reqPwdLogin = (name, pwd, id, value) => ajax(BASE_URL + '/user/login/pwd', {name, pwd, id, value}, 'POST')
 /**
  * 获取短信验证码
  */
@@ -34,9 +34,9 @@ export const reqSendCode = phone => ajax(BASE_URL + '/sendcode', {phone})
 /**
  * 手机号验证码登录
  */
-export const reqSmsLogin = (phone, code) => ajax(BASE_URL + '/login_sms', {phone, code}, 'POST')
+export const reqSmsLogin = (phone, code) => ajax(BASE_URL + '/user/login/sms', {phone, code}, 'POST')
 
-export const reqCaptcha = () => ajax(BASE_URL + '/captcha')
+export const reqCaptcha = () => ajax(BASE_URL + '/user/captcha')
 
 /**
  * 获取用户信息(根据会话)
@@ -60,4 +60,4 @@ export const reqShopRatings = () => ajax('/ratings')
  */
 export const reqShopGoods = () => ajax('/goods')
 
-export const uploadFile = (formData) => ajax(BASE_URL + '/upload/avator', formData)
+export const uploadFile = (formData) => ajax(BASE_URL + '/user/upload/avatar', formData, 'POST')

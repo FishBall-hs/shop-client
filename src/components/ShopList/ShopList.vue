@@ -26,14 +26,14 @@
                 </div>
               </section>
               <section class="shop_rating_order_right">
-                <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
+                <span class="delivery_style delivery_right">{{shop.delivery_mode}}</span>
               </section>
             </section>
             <section class="shop_distance">
               <p class="shop_delivery_msg">
-                <span>¥{{shop.float_minimum_order_amount}}起送</span>
+                <span>¥{{shop.minimum_order_amount}}起送</span>
                 <span class="segmentation">/</span>
-                <span>配送费约¥{{shop.float_delivery_fee}}</span>
+                <span>配送费约¥{{shop.delivery_fee}}</span>
               </p>
             </section>
           </div>

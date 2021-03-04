@@ -67,6 +67,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('getShopGoods', () => { // 数据更新后执行
+      console.log(88)
       this.$nextTick(() => { // 列表数据更新显示后执行
         this._initScroll()
         this._initTops()

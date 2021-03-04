@@ -104,7 +104,9 @@ export default {
 
   // 异步获取商家商品列表
   async getShopGoods ({commit}, callback) {
+    console.log('getShopGoods')
     const result = await reqShopGoods()
+    console.log(result)
     if (result.code === 0) {
       const goods = result.data
       commit(RECEIVE_GOODS, {goods})
