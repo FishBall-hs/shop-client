@@ -14,6 +14,7 @@ import {
   reqShopInfo,
   reqSearchShop
 } from '../api'
+import RequestAPI from '../api/api'
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
@@ -100,6 +101,17 @@ export default {
       // 数据更新了, 通知一下组件
       callback && callback()
     }
+  },
+
+  // TODO 调用demo-异步获取商家商品列表
+  async getShopGoodsTest ({commit}, callback) {
+    const params = {
+      id: 535686
+    }
+    await RequestAPI.getShopGoodsAPI(params).then(res => {
+      console.log(res) // 这里处理返回数据
+      callback && callback()
+    })
   },
 
   // 异步获取商家商品列表

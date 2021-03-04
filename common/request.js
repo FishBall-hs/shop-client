@@ -1,12 +1,7 @@
-
 import axios from 'axios'
-import { message } from 'antd'
 import { getParamString } from './utils'
-import statusStore from '../stores/statusStore'
-import handleError from '../config/handleError'
-import ReportData from '../config/reportData'
-import commMethod from 'Common/utils/commMethod.js'
-import addCatError from './addCatError.js'
+import statusStore from './statusStore'
+import handleError from './handleError'
 
 const requestOver = () => {
   let currentGlobalLoadingCount = statusStore.globalLoadingCount
@@ -38,9 +33,9 @@ function processResponse (url, response, resolve, reject, errorMsg) {
       level: 'ALERT' // UNDO 正常, ALERT 弹出消息
     }, response.error || {})
 
-    if (errorObj.level === 'ALERT' || errorObj.level === 'ALTER') {
-      addCatError({ name: url, msg: errorObj.message })
-      message.error(errorObj.message)
+    if (errorObj.level === 'ALERT') {
+      // 错误提示
+      alert(errorObj.message)
     }
     handleError(errorObj)
     reject(errorObj)
@@ -177,26 +172,13 @@ const request = (apiUrl, errorMsg, extra_headers = {}) => {
   let currentGlobalLoadingCount = statusStore.globalLoadingCount
   statusStore.setGlobalLoadingCount(currentGlobalLoadingCount + 1)
 
-  let reportData = ''
-
-  try {
-    // 获取上报数据
-    reportData = ReportData.interfaceReport(apiUrl)
-  } catch (e) {
-    console.log(e)
-  }
-
-  reportData = JSON.stringify(reportData)
-  reportData = encodeURI(reportData)
-
   // 设置默认参数
   let requestOption = Object.assign({
     host: '',
     baseURL: '',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      'X-Requested-With': 'XMLHttpRequest',
-      'log-data': reportData
+      'X-Requested-With': 'XMLHttpRequest'
     },
     timeout: 30000,
     withCredentials: true
@@ -205,7 +187,7 @@ const request = (apiUrl, errorMsg, extra_headers = {}) => {
   let instance = axios.create(requestOption)
   instance.interceptors.response.use(response => {
     if ((response.data.status === 'fail' && response.data.error.code === 1010) || response.data.status === 401) {
-      commMethod.logOut()
+      // 此处可以强制退出
     }
     requestOver()
     return response

@@ -33,9 +33,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
+    // 暴露出一些可以全局 import 的 组件
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'Common': path.resolve(__dirname, '../common/'),
+      'Config': path.resolve(__dirname, '../config/'),
     }
   },
   module: {

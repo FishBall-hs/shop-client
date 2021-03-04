@@ -138,6 +138,8 @@ export default {
     // 忘记方法名时查看Action.js
     this.$store.dispatch('getCategorys')
     this.$store.dispatch('getShops')
+    // TODO
+    this.$store.dispatch('getShopGoodsTest')
   }
 }
 </script>
